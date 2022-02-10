@@ -10,7 +10,7 @@ namespace DevCard.Controllers
     public class HomeController : Controller
     {
 
-        public readonly List<Service> Services = new List<Service>()
+        public List<Service> Services = new List<Service>()
         {
             new Service(1, "نقره"),
             new Service(3, "طلایی"),
@@ -20,11 +20,13 @@ namespace DevCard.Controllers
 
         public IActionResult Index()
         {
+            
             return View();
         }
 
         public IActionResult Contact()
         {
+            
             var model = new Contact()
             {
                 Services = new SelectList(Services, "Id", "Name")
@@ -43,9 +45,12 @@ namespace DevCard.Controllers
                 return View(form);
             }
 
-
             ModelState.Clear();
-            form.Services = new SelectList(Services, "Id", "Name");
+            form = new Contact
+            {
+                Services = new SelectList(Services, "Id", "Name")
+            };
+
             ViewBag.success = "عملیات با موفقینت انجام شد";
             return View(form);
         }
